@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <script>
+      (function() {
+        try {
+          var targetObj = window;
+          var propName = 'fetch';
+          var desc = Object.getOwnPropertyDescriptor(targetObj, propName);
+          
+          // If not configurable/writable on window, try Window.prototype
+          if (!desc || !desc.configurable) {
+            var proto = Object.getPrototypeOf(window);
+            while (proto) {
+              var d = Object.getOwnPropertyDescriptor(proto, propName);
+              if (d && d.configurable) {
+                targetObj = proto;
+                desc = d;
+                break;
+              }
+              proto = Object.getPrototypeOf(proto);
+            }
+          }
+
+          var originalFetch = window.fetch;
+          var customFetch = originalFetch;
+
+          Object.defineProperty(targetObj, propName, {
+            get: function() {
+              return customFetch;
+            },
+            set: function(val) {
+              customFetch = val;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.warn("Could not redefine window.fetch with custom setter/getter:", e);
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAMI | Luxury Moroccan Fashion House</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

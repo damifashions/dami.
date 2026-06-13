@@ -1,0 +1,6 @@
+{
+  "name": "Dami | Luxury Moroccan Fashion",
+  "description": "Dami is a premium Moroccan clothing brand combining traditional elegance with contemporary minimalist silhouettes like luxurious Kimonos, Tunics, and Limited Editions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
