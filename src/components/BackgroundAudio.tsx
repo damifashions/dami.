@@ -184,12 +184,12 @@ export function BackgroundAudio({ lang, soundEnabled, onToggleSound, audioUrl }:
       />
 
       {/* Single Master Music Toggle Button */}
-      <div className={`fixed bottom-6 ${isRtl ? 'right-6' : 'left-6'} z-50`}>
+      <div className={`fixed bottom-22 sm:bottom-6 ${isRtl ? 'right-4 sm:right-6' : 'left-4 sm:left-6'} z-50`}>
         <motion.button
           onClick={handleSingleButtonClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`flex items-center space-x-2.5 px-4 py-3 rounded-full border shadow-2xl backdrop-blur-xl transition-all duration-300 cursor-pointer ${
+          className={`flex items-center space-x-2 sm:space-x-2.5 px-3 py-2.5 sm:px-4 sm:py-3 rounded-full border shadow-2xl backdrop-blur-xl transition-all duration-300 cursor-pointer ${
             soundEnabled && isPlaying
               ? 'bg-dark/95 text-gold border-gold/60 shadow-gold/30'
               : 'bg-dark/80 text-ivory/60 border-ivory/20 hover:border-gold/40 hover:text-gold'

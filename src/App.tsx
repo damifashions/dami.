@@ -1162,7 +1162,7 @@ export default function App() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 220 }}
         onClick={() => setIsQuickOrderOpen(true)}
-        className={`fixed bottom-6 ${isRtl ? 'left-6' : 'right-6'} z-40 group flex items-center gap-2.5 bg-dark text-gold border border-gold/70 px-5 py-3.5 shadow-2xl hover:bg-gold hover:text-dark hover:border-dark transition-all duration-300 cursor-pointer rounded-full`}
+        className={`fixed bottom-5 sm:bottom-6 ${isRtl ? 'left-4 sm:left-6' : 'right-4 sm:right-6'} z-40 group flex items-center gap-2 sm:gap-2.5 bg-dark text-gold border border-gold/70 px-4 py-3 sm:px-5 sm:py-3.5 shadow-2xl hover:bg-gold hover:text-dark hover:border-dark transition-all duration-300 cursor-pointer rounded-full`}
         title={lang === 'ar' ? 'اطلب الآن - طلب سريع' : lang === 'fr' ? 'Commander Maintenant' : 'Order Now — Express Checkout'}
       >
         <div className="relative flex items-center justify-center">
