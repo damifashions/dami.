@@ -102,7 +102,7 @@ export function ServicesSection({ lang }: ServicesSectionProps) {
             {/* Main Immersive image representing natural light & hand woven texturing */}
             <div className="aspect-[3/4] overflow-hidden bg-[#EAE3D6] border border-sand/40 shadow-xl relative group">
               <img 
-                src="https://cdn.corenexis.com/f/5xn7qKzdXpm.png" // User-requested image under modern moroccan minimalism
+                src="https://i.imgur.com/loZ8qPq.jpeg" // User-requested image under modern moroccan minimalism
                 alt="Dami premium warm linen tailored details" 
                 className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
                 referrerPolicy="no-referrer"
@@ -112,15 +112,7 @@ export function ServicesSection({ lang }: ServicesSectionProps) {
               <div className="absolute inset-0 bg-[#4D5643]/10 mix-blend-multiply pointer-events-none" />
             </div>
 
-            {/* Accent Floating Image representing riad architectural space under sunlight */}
-            <div className="absolute -bottom-10 -right-6 lg:-right-10 w-2/5 aspect-[3/4] bg-white border-2 border-[#FAF8F5] shadow-2xl hidden sm:block overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1549556250-3a529711f33a?q=80&w=600&auto=format&fit=crop" // User image 3: Riad column pool
-                alt="Dami luxury riad reflecting pool couture" 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            </div>
+
             
             {/* Fine decorative sand text line */}
             <div className={`absolute -top-6 ${isRtl ? 'left-6' : 'right-6'} font-mono text-[8px] text-dark/30 tracking-widest uppercase`}>

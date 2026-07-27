@@ -13,6 +13,8 @@ import { ServicesSection } from './components/ServicesSection';
 import { LookbookSection } from './components/LookbookSection';
 import { InteractiveContact } from './components/InteractiveContact';
 import { LegalModal } from './components/LegalModal';
+import { QuickOrderModal } from './components/QuickOrderModal';
+import { BackgroundAudio } from './components/BackgroundAudio';
 
 // Domain data and constants
 import { DamiLanguage, DamiCurrency, Product, CartItem } from './types';
@@ -21,7 +23,7 @@ import { TRANSLATIONS, PRODUCTS, TESTIMONIALS, INSTAGRAM_POSTS } from './data';
 export default function App() {
   // Locale States
   const [lang, setLang] = useState<DamiLanguage>('en');
-  const [currency, setCurrency] = useState<DamiCurrency>('EUR');
+  const [currency, setCurrency] = useState<DamiCurrency>('MAD');
 
   // Navigation Panel state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +32,7 @@ export default function App() {
   // Cart / Bag drawer state
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isQuickOrderOpen, setIsQuickOrderOpen] = useState(false);
 
   // Wishlist state
   const [wishlist, setWishlist] = useState<string[]>([]);
@@ -47,6 +50,9 @@ export default function App() {
 
   // Contact prefill state
   const [prefilledProductTitle, setPrefilledProductTitle] = useState<string>('');
+
+  // Background audio state (ON by default)
+  const [bgSoundEnabled, setBgSoundEnabled] = useState(true);
 
   // Newsletter subscription states
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -184,12 +190,12 @@ export default function App() {
       
       {/* A. GRAND THE ART OF MODERN HERITAGE PORTICO */}
       <div className="bg-dark text-ivory pt-28 pb-16 md:pt-36 md:pb-24 px-6 md:px-12 text-center select-none relative border-b border-gold/20 overflow-hidden z-20">
-        {/* User requested background image with fine subtle dark overlay */}
+        {/* User requested background image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-45 pointer-events-none" 
-          style={{ backgroundImage: 'url("https://cdn.corenexis.com/f/3Zo4PeTNDRI.jpg")' }} 
+          className="absolute inset-0 bg-cover bg-center opacity-65 pointer-events-none" 
+          style={{ backgroundImage: 'url("https://i.imgur.com/SM7WoIU.jpeg")' }} 
         />
-        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
         {/* Subtle background lines/glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,155,94,0.08)_0%,transparent_70%)] pointer-events-none" />
         <div className="absolute inset-0 bg-repeat opacity-[0.02] pointer-events-none" 
@@ -350,9 +356,14 @@ export default function App() {
             className="fixed inset-0 z-40 bg-dark text-ivory flex flex-col lg:flex-row justify-between"
           >
             {/* Left Column Decor */}
-            <div className={`hidden lg:flex w-2/5 p-16 flex-col justify-between border-r border-ivory/10 bg-gradient-to-tr from-dark/95 to-zinc-900 relative`}>
+            <div className={`hidden lg:flex w-2/5 p-16 flex-col justify-between border-r border-ivory/10 bg-gradient-to-tr from-dark/95 to-zinc-900 relative overflow-hidden`}>
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none" 
+                style={{ backgroundImage: 'url("https://i.imgur.com/43k1rPN.jpeg")' }} 
+              />
+              <div className="absolute inset-0 bg-black/40 pointer-events-none" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(230,215,195,0.06)_0%,transparent_75%)] pointer-events-none" />
-              <div>
+              <div className="relative z-10">
                 <span className="font-serif italic text-gold text-sm tracking-wider block mb-2">Heritage Over Time.</span>
                 <h4 className="font-serif text-4xl lg:text-5xl font-light uppercase text-sand max-w-sm leading-tight">
                   Crafted Heritage. Worn Today.
@@ -452,6 +463,8 @@ export default function App() {
         lang={lang} 
         onShopClick={() => scrollToIdHandler('shop')} 
         onStoryClick={() => scrollToIdHandler('story')} 
+        soundEnabled={bgSoundEnabled}
+        onToggleSound={setBgSoundEnabled}
       />
 
       {/* E. BRAND VISION & WELCOME SUMMARY CARD */}
@@ -576,9 +589,9 @@ export default function App() {
         {/* Grayscale vintage image background container */}
         <div className="relative min-h-[400px] md:h-auto overflow-hidden group">
           <img 
-            src="https://cdn.corenexis.com/f/dnGY8UBkkSr.jpg" 
-            alt="Handwoven luxury Moroccan craftsmanship" 
-            className="absolute inset-0 w-full h-full object-cover grayscale opacity-90 transition-transform duration-[2000ms] group-hover:scale-105"
+            src="https://i.imgur.com/AZXooiX.jpeg" 
+            alt="Maison de Couture Atelier craftsmanship" 
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-transparent to-transparent opacity-40" />
@@ -1140,6 +1153,48 @@ export default function App() {
         type={activeLegalModal}
         lang={lang}
         onClose={() => setActiveLegalModal(null)} 
+      />
+
+      {/* Q. FLOATING POPUP "ORDER NOW" BUTTON */}
+      <motion.button
+        id="order-now-popup-btn"
+        initial={{ y: 60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.8, type: 'spring', stiffness: 220 }}
+        onClick={() => setIsQuickOrderOpen(true)}
+        className={`fixed bottom-6 ${isRtl ? 'left-6' : 'right-6'} z-40 group flex items-center gap-2.5 bg-dark text-gold border border-gold/70 px-5 py-3.5 shadow-2xl hover:bg-gold hover:text-dark hover:border-dark transition-all duration-300 cursor-pointer rounded-full`}
+        title={lang === 'ar' ? 'اطلب الآن - طلب سريع' : lang === 'fr' ? 'Commander Maintenant' : 'Order Now — Express Checkout'}
+      >
+        <div className="relative flex items-center justify-center">
+          <Sparkles size={16} className="text-gold group-hover:text-dark transition-colors animate-pulse" />
+          {cart.length > 0 && (
+            <span className="absolute -top-2.5 -right-2.5 text-[9px] font-bold bg-gold text-dark border border-dark w-4.5 h-4.5 rounded-full flex items-center justify-center">
+              {cart.reduce((s, i) => s + i.quantity, 0)}
+            </span>
+          )}
+        </div>
+        <span className="font-sans text-xs uppercase tracking-[0.22em] font-bold">
+          {lang === 'ar' ? 'اطلب الآن' : lang === 'fr' ? 'Commander' : 'Order Now'}
+        </span>
+        <div className="w-2 h-2 rounded-full bg-gold group-hover:bg-dark animate-ping" />
+      </motion.button>
+
+      {/* R. QUICK ORDER POPUP MODAL */}
+      <QuickOrderModal
+        isOpen={isQuickOrderOpen}
+        onClose={() => setIsQuickOrderOpen(false)}
+        lang={lang}
+        currency={currency}
+        cart={cart}
+        onAddToBag={handleAddToBag}
+        onClearCart={handleClearCart}
+      />
+
+      {/* S. GLOBAL ATMOSPHERIC BACKGROUND AUDIO PLAYER */}
+      <BackgroundAudio
+        lang={lang}
+        soundEnabled={bgSoundEnabled}
+        onToggleSound={setBgSoundEnabled}
       />
 
     </div>

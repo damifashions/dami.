@@ -77,7 +77,7 @@ export function LegalModal({ type, lang, onClose }: LegalModalProps) {
                 <section className="space-y-2">
                   <h4 className="font-serif text-lg text-dark font-medium">Boutique Inquiries</h4>
                   <p className="font-light">
-                    Tel: +212 (0) 524 44 44 44<br />
+                    Tel: +212 (0) 696 19 48 94<br />
                     Email: damifashions@gmail.com
                   </p>
                 </section>

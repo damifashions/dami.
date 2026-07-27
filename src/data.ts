@@ -155,9 +155,9 @@ export const PRODUCTS: Product[] = [
     },
     category: "kimonos",
     categoryLabel: { en: "Kimonos", fr: "Kimonos Dami", ar: "كيمونو" },
-    price: { EUR: 29, USD: 32, MAD: 310 },
-    imageMain: "https://cdn.corenexis.com/f/7GqLOEDyX41.jpeg", // Riad Marrakesh Silk Kimono main image
-    imageAlt: "https://cdn.corenexis.com/f/yRXXvoH2WHt.jpeg", // Riad Marrakesh Silk Kimono alt image
+    price: { EUR: 19, USD: 21, MAD: 199 },
+    imageMain: "https://i.imgur.com/VZa5ym5.jpeg", // Riad Marrakesh Silk Kimono main image
+    imageAlt: "https://i.imgur.com/9DqNja8.jpeg", // Riad Marrakesh Silk Kimono alt image
     description: {
       en: "Woven in premium organic silk with subtle hand-placed gold stitch borders. Designed with relaxed billowy sleeves and elegant side drapery that matches Marrakesh light shadows.",
       fr: "Tissé en soie biologique d'exception ornée de délicats liserés brodés à l'or fin par notre maître artisan à Fès. Une coupe majestueuse au tombé aérien idéal.",
@@ -255,8 +255,7 @@ export const PRODUCTS: Product[] = [
     category: "abayas",
     categoryLabel: { en: "Tunics", fr: "Tuniques Nobles", ar: "تونيك" },
     price: { EUR: 29, USD: 32, MAD: 310 },
-    imageMain: "https://cdn.corenexis.com/f/1jg7qWn6YRO.png", // Stunning luxury bohemian styling
-    imageAlt: "https://cdn.corenexis.com/f/VH6vsNjUQL5.png", // Elegant luxury bohemian tunic model
+    imageMain: "https://i.imgur.com/JdIEioK.jpeg", // Bohemian Tunic main image
     description: {
       en: "A tribute to free-spirited elegance. Combining fluid high-grade black satin-silk with minimal geometric bohemian embroidery that frames the silhouette with extreme grace.",
       fr: "Un hommage à l'élégance libre de l'esprit bohème. Soie de satin fluide noir de jais, rehaussée de délicates broderies géométriques bohèmes.",
@@ -408,7 +407,7 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
       fr: "Drapés de lin ivoire sculpturaux respirant face à l'immensité du riad.",
       ar: "أقمشة كتانية بيضاء ورمادية مذهلة تتهادى على درجات القصور التاريخية بمراكش."
     },
-    imageUrl: "https://cdn.corenexis.com/f/5xn7qKzdXpm.png", // User image 1: Model on stairs
+    imageUrl: "https://i.imgur.com/loZ8qPq.jpeg", // User image: Model warm linen
     setting: {
       en: "Medina Ateliers, Marrakech",
       fr: "Ateliers de la Médina, Maroc",
@@ -438,7 +437,7 @@ export const TESTIMONIALS: Testimonial[] = [
 
 // Simulated Instagram Gallery items with only user-uploaded photos
 export const INSTAGRAM_POSTS = [
-  { id: "ig-1", url: "https://cdn.corenexis.com/f/5xn7qKzdXpm.png" },
+  { id: "ig-1", url: "https://i.imgur.com/loZ8qPq.jpeg" },
   { id: "ig-2", url: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=400&auto=format&fit=crop" },
   { id: "ig-3", url: "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=400&auto=format&fit=crop" },
   { id: "ig-4", url: "https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=400&auto=format&fit=crop" }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, ShoppingBag, X, Ruler, Sparkles, Share2, Eye, Check, AlertCircle } from 'lucide-react';
+import { Heart, ShoppingBag, X, Ruler, Sparkles, Share2, Eye, Check, AlertCircle, MessageCircle } from 'lucide-react';
 import { Product, DamiLanguage, DamiCurrency } from '../types';
 import { PRODUCTS, TRANSLATIONS } from '../data';
 
@@ -480,6 +480,25 @@ export function PortfolioGrid({ lang, currency, wishlist, onToggleWishlist, onAd
                       />
                     </button>
                   </div>
+
+                  {/* Direct WhatsApp Order Button */}
+                  <button
+                    onClick={() => {
+                      const defaultGreeting = lang === 'fr'
+                        ? "Bonjour, je souhaite commander cette pièce sur WhatsApp:"
+                        : lang === 'ar'
+                        ? "مرحباً، أود طلب هذه القطعة الفاخرة عبر واتساب:"
+                        : "Hello, I would like to order this piece on WhatsApp:";
+                      const text = encodeURIComponent(
+                        `${defaultGreeting}\n\n*${selectedProduct.title[lang]}*\n*${lang === 'ar' ? 'المقاس' : 'Size'}:* ${selectedSize}\n*${lang === 'ar' ? 'السعر' : 'Price'}:* ${formatPrice(selectedProduct.price)}`
+                      );
+                      window.open(`https://wa.me/212696194894?text=${text}`, '_blank');
+                    }}
+                    className="w-full bg-[#25D366] hover:bg-[#1ebf58] text-white py-3.5 px-6 uppercase text-xs tracking-[0.2em] font-sans font-bold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-md hover:shadow-green-500/20"
+                  >
+                    <MessageCircle size={15} />
+                    <span>{lang === 'ar' ? 'طلب في واتساب (+212696194894)' : lang === 'fr' ? 'Commander sur WhatsApp (+212696194894)' : 'Order in WhatsApp (+212696194894)'}</span>
+                  </button>
 
                   {/* Share button and live copy URL */}
                   <div className="flex justify-between items-center text-[10px] text-dark/50 font-sans px-1">

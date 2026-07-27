@@ -282,8 +282,8 @@ export function InteractiveContact({ lang, prefilledProductTitle, onClearPrefill
                   <span className="font-sans text-[9px] uppercase tracking-widest text-[#B89B5E] block">
                     {lang === 'ar' ? 'الخط الساخن الحصري' : 'MAISON CALLS & WHATSAPP'}
                   </span>
-                  <a href="tel:+212524444444" className="font-sans font-medium text-base text-dark custom-underline">
-                    +212 (0) 524 44 44 44
+                  <a href="tel:+212696194894" className="font-sans font-medium text-base text-dark custom-underline">
+                    +212 (0) 696 19 48 94
                   </a>
                 </div>
               </div>

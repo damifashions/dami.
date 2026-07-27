@@ -8,6 +8,8 @@ interface HeaderSlideshowProps {
   lang: DamiLanguage;
   onShopClick: () => void;
   onStoryClick: () => void;
+  soundEnabled?: boolean;
+  onToggleSound?: (enabled: boolean) => void;
 }
 
 interface Slide {
@@ -21,7 +23,7 @@ interface Slide {
 const HERO_SLIDES: Slide[] = [
   {
     id: 1,
-    url: 'https://cdn.corenexis.com/f/BoAGz8OuGjq.jpg', // Under Crafted Heritage. Worn Today background image requested by user
+    url: 'https://i.imgur.com/43k1rPN.jpeg', // Under Crafted Heritage. Worn Today background image requested by user
     titles: {
       en: "Crafted Heritage. Worn Today.",
       fr: "Héritage Artisanal. Porté Aujourd'hui.",
@@ -33,36 +35,46 @@ const HERO_SLIDES: Slide[] = [
       ar: "نُعيد صياغة الأناقة التقليدية بأبعاد معاصرة تناسب الحاضر."
     },
     settings: {
-      en: "The Medina Streets, Marrakech",
-      fr: "Les Rues de la Médina, Marrakech",
-      ar: "شوارع المدينة القديمة، مراكش"
+      en: "",
+      fr: "",
+      ar: ""
     }
   },
   {
     id: 2,
-    url: 'https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=1920&auto=format&fit=crop', // Beautiful pure golden sand dunes of the Merzouga Sahara desert
+    url: 'https://i.imgur.com/jaN26VN.jpeg',
     titles: {
-      en: "The Golden Dunes.",
-      fr: "Les Dunes d'Or.",
-      ar: "الكثبان الذهبية."
+      en: "ORIGIN",
+      fr: "ORIGINE",
+      ar: "الأصل"
     },
     claims: {
-      en: "Endless waves of pure Sahara sand sculpted by hot desert winds.",
-      fr: "Vagues infinies du Sahara marocain sculptées par le vent du désert.",
-      ar: "أمواج غير متناهية من رمال الصحراء الذهبية يُشكلها نسيم مرزوكة."
+      en: "You deserve to be unique.",
+      fr: "Vous méritez d'être unique.",
+      ar: "تستحقين أن تكوني فريدة."
     },
     settings: {
-      en: "Golden Sand Dunes, Merzouga",
-      fr: "Dunes d'Or, Merzouga",
-      ar: "كثبان مرزوكة الذهبية"
+      en: "",
+      fr: "",
+      ar: ""
     }
   }
 ];
 
-export function HeaderSlideshow({ lang, onShopClick, onStoryClick }: HeaderSlideshowProps) {
+export function HeaderSlideshow({ lang, onShopClick, onStoryClick, soundEnabled: propSoundEnabled, onToggleSound }: HeaderSlideshowProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [internalSoundEnabled, setInternalSoundEnabled] = useState(false);
+  const soundEnabled = propSoundEnabled !== undefined ? propSoundEnabled : internalSoundEnabled;
+
+  const handleToggleSound = () => {
+    const nextState = !soundEnabled;
+    if (onToggleSound) {
+      onToggleSound(nextState);
+    } else {
+      setInternalSoundEnabled(nextState);
+    }
+  };
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const isRtl = lang === 'ar';
@@ -129,10 +141,12 @@ export function HeaderSlideshow({ lang, onShopClick, onStoryClick }: HeaderSlide
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Setting Location indicator */}
-            <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-sand font-medium inline-flex items-center mb-5 gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-              {HERO_SLIDES[currentIndex].settings[lang]}
-            </span>
+            {HERO_SLIDES[currentIndex].settings[lang] ? (
+              <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-sand font-medium inline-flex items-center mb-5 gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                {HERO_SLIDES[currentIndex].settings[lang]}
+              </span>
+            ) : null}
             
             {/* Majestic Serif Header */}
             <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-tight tracking-wide mb-6 font-light drop-shadow-sm max-w-4xl">
@@ -192,7 +206,7 @@ export function HeaderSlideshow({ lang, onShopClick, onStoryClick }: HeaderSlide
 
           {/* Atmospheric Soundtrack Toggle */}
           <button
-            onClick={() => setSoundEnabled(!soundEnabled)}
+            onClick={handleToggleSound}
             className="text-ivory/70 hover:text-sand transition-colors cursor-pointer p-1 relative"
             title="Toggle Ambient Oasis Sound"
           >
@@ -255,58 +269,6 @@ export function HeaderSlideshow({ lang, onShopClick, onStoryClick }: HeaderSlide
         </div>
       </div>
 
-      {/* Atmospheric Soundtrack Box */}
-      <AnimatePresence>
-        {soundEnabled && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className={`fixed bottom-28 z-50 bg-dark/95 border border-gold/30 text-ivory p-4 shadow-2xl backdrop-blur-xl max-w-xs ${isRtl ? 'left-6 md:left-12' : 'right-6 md:right-12'}`}
-          >
-            <div className="flex items-start space-x-3">
-              <div className="bg-gold/10 p-1.5 rounded-full text-gold shrink-0">
-                <Sparkles size={14} className="animate-spin" style={{ animationDuration: '8s' }} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-sans text-[10px] font-semibold text-gold uppercase tracking-widest">
-                  {lang === 'ar' ? 'صدى الصحراء الأصيل' : 'DESERT WIND SOUNDTRACK'}
-                </p>
-                <p className="font-serif text-xs italic mt-1 text-ivory/90 truncate">
-                  "Oud Reverie & Golden Sands Breeze"
-                </p>
-                <p className="font-sans text-[9px] text-ivory/60 mt-1 leading-relaxed">
-                  {lang === 'ar' 
-                    ? 'صوت نسيم رملي هادئ مع عزف عود خافت لتجربة مغربية ساحرة.'
-                    : 'A soothing acoustic oud harmony layered with soft dunes winds allows full collection immersion.'}
-                </p>
-              </div>
-              <button 
-                onClick={() => setSoundEnabled(false)}
-                className="text-ivory/50 hover:text-white text-xs p-1"
-              >
-                ✕
-              </button>
-            </div>
-            
-            {/* Audio wave animation */}
-            <div className="flex items-end justify-center space-x-1 mt-4 h-4">
-              {[1, 2, 3, 4, 3, 2, 4, 3, 2, 1, 3, 2, 4, 1].map((val, i) => (
-                <motion.div
-                  key={i}
-                  className="w-[1.5px] bg-gold rounded-full"
-                  animate={{ height: [`${val * 2}px`, `${(val + 1.5) * 3}px`, `${val * 2}px`] }}
-                  transition={{
-                    duration: 0.7 + (i % 3) * 0.15,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
