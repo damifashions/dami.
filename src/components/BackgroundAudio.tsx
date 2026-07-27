@@ -183,26 +183,26 @@ export function BackgroundAudio({ lang, soundEnabled, onToggleSound, audioUrl }:
         }}
       />
 
-      {/* Single Master Music Toggle Button */}
-      <div className={`fixed bottom-22 sm:bottom-6 ${isRtl ? 'right-4 sm:right-6' : 'left-4 sm:left-6'} z-50`}>
+      {/* Single Master Music Toggle Button - Compact Corner Audio */}
+      <div className={`fixed bottom-3 sm:bottom-4 ${isRtl ? 'right-3 sm:right-4' : 'left-3 sm:left-4'} z-40`}>
         <motion.button
           onClick={handleSingleButtonClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`flex items-center space-x-2 sm:space-x-2.5 px-3 py-2.5 sm:px-4 sm:py-3 rounded-full border shadow-2xl backdrop-blur-xl transition-all duration-300 cursor-pointer ${
+          className={`flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full border shadow-lg backdrop-blur-md transition-all duration-300 cursor-pointer ${
             soundEnabled && isPlaying
-              ? 'bg-dark/95 text-gold border-gold/60 shadow-gold/30'
-              : 'bg-dark/80 text-ivory/60 border-ivory/20 hover:border-gold/40 hover:text-gold'
+              ? 'bg-dark/90 text-gold border-gold/40 shadow-gold/20'
+              : 'bg-dark/70 text-ivory/50 border-ivory/15 hover:border-gold/30 hover:text-gold'
           }`}
-          title={soundEnabled ? "Shutdown Music" : "Play Spiritual Ambient Music"}
+          title={soundEnabled ? "Mute Music" : "Play Ambient Music"}
         >
           {soundEnabled && isPlaying ? (
             <>
-              <Volume2 size={16} className="text-gold animate-pulse" />
-              <span className="font-sans text-[11px] font-semibold tracking-wider uppercase pr-1">
-                {lang === 'ar' ? 'الموسيقى : شغال' : lang === 'fr' ? 'Musique : Activée' : 'Music : Playing'}
+              <Volume2 size={13} className="text-gold animate-pulse shrink-0" />
+              <span className="font-sans text-[9px] sm:text-[10px] font-medium tracking-wider uppercase">
+                {lang === 'ar' ? 'موسيقى' : lang === 'fr' ? 'Musique' : 'Music'}
               </span>
-              <span className="flex space-x-0.5 items-end h-3 ml-0.5">
+              <span className="flex space-x-0.5 items-end h-2.5 ml-0.5 shrink-0">
                 <span className="w-0.5 bg-gold h-full animate-bounce [animation-delay:-0.3s]"></span>
                 <span className="w-0.5 bg-gold h-full animate-bounce [animation-delay:-0.15s]"></span>
                 <span className="w-0.5 bg-gold h-full animate-bounce"></span>
@@ -210,11 +210,11 @@ export function BackgroundAudio({ lang, soundEnabled, onToggleSound, audioUrl }:
             </>
           ) : (
             <>
-              <VolumeX size={16} className="text-ivory/50" />
-              <span className="font-sans text-[11px] font-medium tracking-wider uppercase pr-1">
-                {lang === 'ar' ? 'الموسيقى : متوقفة' : lang === 'fr' ? 'Musique : Désactivée' : 'Music : Off'}
+              <VolumeX size={13} className="text-ivory/40 shrink-0" />
+              <span className="font-sans text-[9px] sm:text-[10px] font-medium tracking-wider uppercase opacity-75">
+                {lang === 'ar' ? 'صامت' : lang === 'fr' ? 'Muet' : 'Muted'}
               </span>
-              <Music size={12} className="text-ivory/40" />
+              <Music size={10} className="text-ivory/30 shrink-0" />
             </>
           )}
         </motion.button>

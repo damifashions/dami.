@@ -1162,21 +1162,21 @@ export default function App() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 220 }}
         onClick={() => setIsQuickOrderOpen(true)}
-        className={`fixed bottom-5 sm:bottom-6 ${isRtl ? 'left-4 sm:left-6' : 'right-4 sm:right-6'} z-40 group flex items-center gap-2 sm:gap-2.5 bg-dark text-gold border border-gold/70 px-4 py-3 sm:px-5 sm:py-3.5 shadow-2xl hover:bg-gold hover:text-dark hover:border-dark transition-all duration-300 cursor-pointer rounded-full`}
+        className={`fixed bottom-14 sm:bottom-16 ${isRtl ? 'left-4 sm:left-6' : 'right-4 sm:right-6'} z-50 group flex items-center gap-2.5 sm:gap-3 bg-dark text-gold border-2 border-gold/80 px-5 py-3.5 sm:px-7 sm:py-4 shadow-[0_10px_30px_rgba(212,175,55,0.35)] hover:bg-gold hover:text-dark hover:border-dark transition-all duration-300 cursor-pointer rounded-full`}
         title={lang === 'ar' ? 'اطلب الآن - طلب سريع' : lang === 'fr' ? 'Commander Maintenant' : 'Order Now — Express Checkout'}
       >
-        <div className="relative flex items-center justify-center">
-          <Sparkles size={16} className="text-gold group-hover:text-dark transition-colors animate-pulse" />
+        <div className="relative flex items-center justify-center shrink-0">
+          <Sparkles size={18} className="text-gold group-hover:text-dark transition-colors animate-pulse" />
           {cart.length > 0 && (
-            <span className="absolute -top-2.5 -right-2.5 text-[9px] font-bold bg-gold text-dark border border-dark w-4.5 h-4.5 rounded-full flex items-center justify-center">
+            <span className="absolute -top-3 -right-3 text-[10px] font-black bg-gold text-dark border-2 border-dark w-5 h-5 rounded-full flex items-center justify-center shadow-md">
               {cart.reduce((s, i) => s + i.quantity, 0)}
             </span>
           )}
         </div>
-        <span className="font-sans text-xs uppercase tracking-[0.22em] font-bold">
+        <span className="font-sans text-xs sm:text-sm uppercase tracking-[0.24em] font-extrabold">
           {lang === 'ar' ? 'اطلب الآن' : lang === 'fr' ? 'Commander' : 'Order Now'}
         </span>
-        <div className="w-2 h-2 rounded-full bg-gold group-hover:bg-dark animate-ping" />
+        <div className="w-2.5 h-2.5 rounded-full bg-gold group-hover:bg-dark animate-ping shrink-0 ml-0.5" />
       </motion.button>
 
       {/* R. QUICK ORDER POPUP MODAL */}
