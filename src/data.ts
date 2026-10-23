@@ -194,7 +194,7 @@ export const PRODUCTS: Product[] = [
     },
     isBestSeller: true,
     isNew: true,
-    inStock: true
+    inStock: false
   },
   {
     id: "dami-set-olive",
@@ -243,7 +243,7 @@ export const PRODUCTS: Product[] = [
     },
     isBestSeller: false,
     isNew: true,
-    inStock: true
+    inStock: false
   },
   {
     id: "dami-bohemian-tunic",
@@ -292,7 +292,7 @@ export const PRODUCTS: Product[] = [
     },
     isBestSeller: false,
     isNew: false,
-    inStock: true
+    inStock: false
   },
   {
     id: "dami-set-majorelle",
@@ -341,7 +341,7 @@ export const PRODUCTS: Product[] = [
     },
     isBestSeller: true,
     isNew: true,
-    inStock: true
+    inStock: false
   }
 ];
 

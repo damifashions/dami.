@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Menu, X, Heart, ShoppingBag, Globe, Trash2, Plus, Minus, 
   Sparkles, Instagram, Check, Compass, Mail, ChevronRight,
-  Info, ArrowUpRight
+  Info, ArrowUpRight, MessageCircle
 } from 'lucide-react';
 
 // Subcomponents
@@ -175,14 +175,39 @@ export default function App() {
     scrollToIdHandler('contact');
   };
 
-  // Handle Simulated checkout
-  const handleStartSimulatedCheckout = () => {
+  // Handle WhatsApp Checkout
+  const handleProceedToCheckout = () => {
+    if (cart.length === 0) return;
+
     setIsCheckingOut(true);
+
+    const defaultGreeting = lang === 'fr'
+      ? "Bonjour Maison DAMI, je souhaite finaliser ma commande WhatsApp pour les pièces suivantes:"
+      : lang === 'ar'
+      ? "مرحباً دار دامي الفاخرة، أود إتمام طلبي عبر واتساب للقطع التالية:"
+      : "Hello Maison DAMI, I would like to finalize my order via WhatsApp for the following pieces:";
+
+    const itemsText = cart
+      .map(
+        (item, idx) =>
+          `${idx + 1}. *${item.product.title[lang]}* (${lang === 'ar' ? 'المقاس' : 'Size'}: ${item.selectedSize}, ${lang === 'ar' ? 'الكمية' : 'Qty'}: ${item.quantity}) — ${item.product.price[currency] * item.quantity}${getCurrencySymbol(currency)}`
+      )
+      .join('\n');
+
+    const totalText = `${calculateCartTotal().toLocaleString()}${getCurrencySymbol(currency)}`;
+
+    const text = encodeURIComponent(
+      `${defaultGreeting}\n\n${itemsText}\n\n*${lang === 'ar' ? 'المجموع الكلي' : 'Total'}:* ${totalText}`
+    );
+
+    // Redirect to WhatsApp at +212696194894
+    window.open(`https://wa.me/212696194894?text=${text}`, '_blank');
+
     setTimeout(() => {
       setIsCheckingOut(false);
       setCheckoutSuccess(true);
       handleClearCart();
-    }, 2000);
+    }, 500);
   };
 
   return (
@@ -998,19 +1023,19 @@ export default function App() {
                     </p>
 
                     <button
-                      onClick={handleStartSimulatedCheckout}
+                      onClick={handleProceedToCheckout}
                       disabled={isCheckingOut}
-                      className="w-full bg-dark hover:bg-gold text-sand hover:text-dark py-4 text-xs font-sans uppercase tracking-[0.25em] font-bold transition-all cursor-pointer flex items-center justify-center gap-2 shadow"
+                      className="w-full bg-[#25D366] hover:bg-[#1ebf58] text-white py-4 text-xs font-sans uppercase tracking-[0.22em] font-bold transition-all cursor-pointer flex items-center justify-center gap-2.5 shadow-lg hover:shadow-green-500/25"
                     >
                       {isCheckingOut ? (
                         <>
-                          <span className="w-3 h-3 border-2 border-sand/30 border-t-gold rounded-full animate-spin" />
-                          <span>{lang === 'ar' ? 'جاري التحقق المالي...' : 'Pre-authorizing Secure Checkout...'}</span>
+                          <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <span>{lang === 'ar' ? 'جاري التحويل إلى واتساب...' : 'Redirecting to WhatsApp...'}</span>
                         </>
                       ) : (
                         <>
-                          <Sparkles size={12} className="text-gold" />
-                          <span>{TRANSLATIONS.checkout[lang]}</span>
+                          <MessageCircle size={16} />
+                          <span>{lang === 'ar' ? 'إتمام الشراء عبر واتساب (+212696194894)' : lang === 'fr' ? 'Commander sur WhatsApp (+212696194894)' : 'Proceed to Checkout via WhatsApp'}</span>
                         </>
                       )}
                     </button>

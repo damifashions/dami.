@@ -84,22 +84,34 @@ export function PortfolioGrid({ lang, currency, wishlist, onToggleWishlist, onAd
               : (categories.find(c => c.id === selectedCategory)?.label)
             }
           </h2>
+          <div className="mt-3 flex justify-center">
+            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-red-600 bg-red-50/90 border border-red-200/80 px-3.5 py-1">
+              {lang === 'ar' ? 'نفدت الكمية (Sold Out)' : 'Sold Out'}
+            </span>
+          </div>
           <div className="w-16 h-[1.5px] bg-gold/50 mx-auto mt-6" />
         </div>
 
         {/* Elegant Minimalist Pill Filters */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-20 max-w-3xl mx-auto p-1.5 bg-[#FAF8F5]/80 border border-sand/40 backdrop-blur-md">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 max-w-3xl mx-auto p-1.5 bg-[#FAF8F5]/80 border border-sand/40 backdrop-blur-md">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`relative px-6 py-3 text-xs uppercase tracking-widest font-sans font-medium transition-all duration-300 cursor-pointer ${
+              className={`relative px-5 py-3 text-xs uppercase tracking-widest font-sans font-medium transition-all duration-300 cursor-pointer text-center ${
                 selectedCategory === category.id
                   ? 'text-ivory'
                   : 'text-dark/70 hover:text-dark'
               }`}
             >
-              <span className="relative z-10">{category.label}</span>
+              <div className="relative z-10 flex flex-col items-center">
+                <span>{category.label}</span>
+                <span className={`text-[9px] uppercase tracking-wider font-bold mt-1 ${
+                  selectedCategory === category.id ? 'text-red-400' : 'text-red-600'
+                }`}>
+                  Sold Out
+                </span>
+              </div>
               {selectedCategory === category.id && (
                 <motion.div
                   layoutId="activeCategoryPill"
@@ -109,6 +121,20 @@ export function PortfolioGrid({ lang, currency, wishlist, onToggleWishlist, onAd
               )}
             </button>
           ))}
+        </div>
+
+        {/* Global indicator right under all the rubrics */}
+        <div className="flex justify-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-50 border border-red-200 text-red-700 text-[10px] tracking-[0.2em] uppercase font-bold shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+            <span>
+              {lang === 'ar'
+                ? 'جميع المجموعات نفدت الكمية — الطلبات متاحة حصرياً عبر واتساب (+212696194894)'
+                : lang === 'fr'
+                ? 'Toutes les rubriques sont épuisées (Sold Out) — Commandes privées sur WhatsApp (+212696194894)'
+                : 'All rubrics currently Sold Out — Bespoke pre-orders via WhatsApp (+212696194894)'}
+            </span>
+          </div>
         </div>
 
         {/* Beautiful Editorial Product Grid */}
@@ -143,6 +169,9 @@ export function PortfolioGrid({ lang, currency, wishlist, onToggleWishlist, onAd
 
                   {/* Badges */}
                   <div className={`absolute top-4 ${isRtl ? 'right-4' : 'left-4'} flex flex-col gap-1.5 z-10`}>
+                    <span className="bg-red-700 text-white text-[8px] md:text-[9px] font-bold tracking-widest uppercase px-3 py-1 font-sans shadow-md">
+                      {lang === 'ar' ? 'نفدت الكمية' : 'SOLD OUT'}
+                    </span>
                     {product.isNew && (
                       <span className="bg-gold text-dark text-[8px] md:text-[9px] font-semibold tracking-widest uppercase px-3 py-1 font-sans">
                         {lang === 'ar' ? 'جديد' : 'NEW'}
@@ -168,10 +197,15 @@ export function PortfolioGrid({ lang, currency, wishlist, onToggleWishlist, onAd
                 <div className="p-6 bg-white border-t border-sand/20 flex-1 flex flex-col justify-between">
                   <div>
                     {/* Category info & Wishlist trigger */}
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-[10px] tracking-[0.25em] uppercase text-gold font-semibold">
-                        {product.categoryLabel[lang]}
-                      </span>
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <span className="text-[10px] tracking-[0.25em] uppercase text-gold font-semibold block">
+                          {product.categoryLabel[lang]}
+                        </span>
+                        <span className="text-[9px] uppercase tracking-widest font-bold text-red-600 block mt-0.5">
+                          Sold Out
+                        </span>
+                      </div>
                       
                       {/* Wishlist Heart */}
                       <button
@@ -325,10 +359,15 @@ export function PortfolioGrid({ lang, currency, wishlist, onToggleWishlist, onAd
                 
                 <div>
                   {/* Breadcrumb row */}
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold">
-                      {selectedProduct.categoryLabel[lang]}
-                    </span>
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold block">
+                        {selectedProduct.categoryLabel[lang]}
+                      </span>
+                      <span className="text-[9px] uppercase tracking-widest font-bold text-red-600 block mt-0.5">
+                        Sold Out
+                      </span>
+                    </div>
                     <span className="font-mono text-[9px] text-dark/50 uppercase tracking-[0.2em]">
                       {lang === 'ar' ? 'صنع يدوي في المغرب' : 'Handcrafted in Fez Atelier'}
                     </span>
